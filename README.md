@@ -29,10 +29,11 @@ Ensure you have the following installed:
    #cd MyTokenProject
 2. Compile Contracts: Compile the smart contracts using Hardhat.
    bash
-   #npx hardhat compile
+   ##npx hardhat compile
 3. #Scripts
 1. Deploy the Contract
 Use the deploy.js script located in the scripts directory to deploy the contract.
-#npx hardhat run scripts/deploy.js --network NETWORK_NAME
+
+##npx hardhat run scripts/deploy.js --network NETWORK_NAME
 
 
