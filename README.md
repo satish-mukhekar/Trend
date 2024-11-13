@@ -33,9 +33,6 @@ Ensure you have the following installed:
 3. #Scripts
 1. Deploy the Contract
 Use the deploy.js script located in the scripts directory to deploy the contract.
-
-bash
-Copy code
 #npx hardhat run scripts/deploy.js --network NETWORK_NAME
 
 
