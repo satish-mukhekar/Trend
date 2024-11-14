@@ -39,7 +39,7 @@ Ensure you have the following installed:
 Deploy the Contract:
 Use the deploy.js script located in the scripts directory to deploy the contract.
 
-npx hardhat run scripts/deploy.js --network <network_name>
+   npx hardhat run scripts/deploy.js --network <network_name>
 e.g npx hardhat run --network testnet scripts/deploy.js
 
 6. verify smart contract
