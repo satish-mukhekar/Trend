@@ -22,7 +22,7 @@ Ensure you have the following installed:
 - [Hardhat](https://hardhat.org/)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Getting Started
-
+## Setup and Deployment Guide
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/yourusername/MyTokenProject.git
@@ -36,5 +36,6 @@ Use the deploy.js script located in the scripts directory to deploy the contract
 
 ##npx hardhat run scripts/deploy.js --network NETWORK_NAME
 
-## DOCUMENTATION GUIDE
+## Documentation guide
+   #USER GUIDE:https://docs.google.com/document/d/1wbSrjGdXO-bWgX0QBQVVIjM7USSsE_vhDZZ35ZpZkJ8/edit?tab=t.0
 
