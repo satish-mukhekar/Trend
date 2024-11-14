@@ -21,22 +21,28 @@ Ensure you have the following installed:
 - [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 - [Hardhat](https://hardhat.org/)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-## Getting Started
+# Getting Started
+
 ## Setup and Deployment Guide
+
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/yourusername/MyTokenProject.git
-   
-   #cd MyTokenProject
-2. Compile Contracts: Compile the smart contracts using Hardhat.
-   bash
-   
-   #npx hardhat compile
-4. #Scripts
-1. Deploy the Contract
-Use the deploy.js script located in the scripts directory to deploy the contract.
+   cd MyTokenProject
+   Compile Contracts:
+2. Compile the smart contracts using Hardhat.
+    npx hardhat compile
 
-##npx hardhat run scripts/deploy.js --network NETWORK_NAME
+3. Scripts
+Deploy the Contract:
+Use the deploy.js script located in the scripts directory to deploy the contract.
+npx hardhat run scripts/deploy.js --network <network_name>
+e.g npx hardhat run --network testnet scripts/deploy.js
+
+4. verify smart contract
+   npx hardhat verify --network <network_name> <contract_address> <constructor_arguments>
+   e.g #npx hardhat verify --network testnet contractaddress "arg1","arg2"
 
 ## Documentation guide
    #USER GUIDE:https://docs.google.com/document/d/1wbSrjGdXO-bWgX0QBQVVIjM7USSsE_vhDZZ35ZpZkJ8/edit?tab=t.0
