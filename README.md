@@ -26,11 +26,13 @@ Ensure you have the following installed:
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/yourusername/MyTokenProject.git
+   
    #cd MyTokenProject
 2. Compile Contracts: Compile the smart contracts using Hardhat.
    bash
-   ##npx hardhat compile
-3. #Scripts
+   
+   #npx hardhat compile
+4. #Scripts
 1. Deploy the Contract
 Use the deploy.js script located in the scripts directory to deploy the contract.
 
