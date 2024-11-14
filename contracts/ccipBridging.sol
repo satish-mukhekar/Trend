@@ -9,7 +9,7 @@ import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications
 import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Bridging is CCIPReceiver, OwnerIsCreator, ERC20 {
-    
+
     error NotEnoughBalance(uint256 currentBalance, uint256 calculatedFees); 
     error NothingToWithdraw(); 
     error FailedToWithdrawEth(address owner, address target, uint256 value); 

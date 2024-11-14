@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Taskcontract = await hre.ethers.deployContract("Bridging", ["0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93","0xE4aB69C077896252FAFBD49EFD26B5D171A32410"]);
+  const Taskcontract = await hre.ethers.deployContract("Trend", [""]);
   console.log(`Deployed address: ${Taskcontract.target}`);
 }
 
@@ -16,7 +16,8 @@ main().catch((error) => {
 });
 
 //contract addres
-// 0x31EEa8798eBf438F34DFBb33195dEbB6764Df6AD(Trend)
+// 0x1fE1F8a8A0E1B65E1e900D8611Ffb9F4B5E67B22
+// https://sepolia.basescan.org/address/0x1fE1F8a8A0E1B65E1e900D8611Ffb9F4B5E67B22#code
 
 //Briding(avax)
 // 0x4D35935cD5a54bfaD8265f9AE808330666d01A8D
@@ -27,7 +28,10 @@ main().catch((error) => {
 
 //Briding(sepolia)
 // 0x7DBDE92ceD89173b7b16B9Ae5b18E2912DCddF62
-// 
+// https://sepolia.basescan.org/address/0x7DBDE92ceD89173b7b16B9Ae5b18E2912DCddF62#code
 /// chain selector: 10344971235874465080
 // router: 0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93
 // link: 0xE4aB69C077896252FAFBD49EFD26B5D171A32410
+
+//ccip explore 
+//https://ccip.chain.link/#/side-drawer/msg/0x75b4acfaa2e77f54601322ce2bc4124a35a79ef0fbd7b5dcc912ceecbd88dbe9

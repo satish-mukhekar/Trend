@@ -10,9 +10,9 @@ import "@openzeppelin/contracts/security/Pausable.sol";
  * @dev ERC20 Token with role-based access control and blacklist functionality.
  */
 contract Trend is ERC20, AccessControl, Pausable {
-    bytes32 private  constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 private  constant BURNER_ROLE = keccak256("BURNER_ROLE");
-    bytes32 private  constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+    bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 private constant BURNER_ROLE = keccak256("BURNER_ROLE");
+    bytes32 private constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     mapping(address => bool) public blacklist; // Mapping to track blacklisted addresses
     mapping(uint256 => bool) public usedNonces; // Mapping to track used nonces
@@ -78,11 +78,10 @@ contract Trend is ERC20, AccessControl, Pausable {
      * @return A boolean indicating success or failure.
      */
     function transfer(address recipient, uint256 amount)
-        public
-        override
-        whenNotPaused
-        returns (bool)
-    {
+    public
+    override
+    whenNotPaused
+    returns(bool) {
         return super.transfer(recipient, amount);
     }
 
@@ -98,7 +97,7 @@ contract Trend is ERC20, AccessControl, Pausable {
         address sender,
         address recipient,
         uint256 amount
-    ) public override whenNotPaused returns (bool) {
+    ) public override whenNotPaused returns(bool) {
         return super.transferFrom(sender, recipient, amount);
     }
 
@@ -109,10 +108,9 @@ contract Trend is ERC20, AccessControl, Pausable {
      * @param amount The amount of tokens to mint.
      */
     function mint(address to, uint256 amount)
-        external
-        whenNotPaused
-        onlyRole(MINTER_ROLE)
-    {
+    external
+    whenNotPaused
+    onlyRole(MINTER_ROLE) {
         _mint(to, amount);
     }
 
@@ -132,9 +130,8 @@ contract Trend is ERC20, AccessControl, Pausable {
      * @param account The address to blacklist.
      */
     function addToBlacklist(address account)
-        external
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {
+    external
+    onlyRole(DEFAULT_ADMIN_ROLE) {
         blacklist[account] = true;
         emit Blacklisted(account);
     }
@@ -146,9 +143,8 @@ contract Trend is ERC20, AccessControl, Pausable {
      * @param account The address to remove from blacklist.
      */
     function removeFromBlacklist(address account)
-        external
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {
+    external
+    onlyRole(DEFAULT_ADMIN_ROLE) {
         blacklist[account] = false;
         emit Unblacklisted(account);
     }
@@ -161,44 +157,62 @@ contract Trend is ERC20, AccessControl, Pausable {
         _pause();
     }
 
-   /**
-   * @dev Unpauses all token transfers. 
-   * Can only be called by an account with PAUSER_ROLE. 
-   */
-   function unpause() external onlyRole(PAUSER_ROLE) {
-       _unpause();
-   }
+    /**
+     * @dev Unpauses all token transfers. 
+     * Can only be called by an account with PAUSER_ROLE. 
+     */
+    function unpause() external onlyRole(PAUSER_ROLE) {
+        _unpause();
+    }
 
-   /**
-   * @dev Locks tokens on this contract and mints equivalent tokens for a recipient. 
-   * Can be called by any non-blacklisted user when not paused. 
-   *
-   * Requirements:
-   *
-   * - `msg.sender` must have a sufficient balance for locking tokens. 
-   * - `nonce` must be unique and not previously used. 
-   *
-   * Emits a Lock event and a MintOnOtherChain event upon success. 
-   *
-   * @param recipient The address receiving the minted tokens on another chain. 
-   * @param amount The amount of tokens to lock and mint. 
-   * @param nonce A unique identifier for this transaction. 
-   */
-   function lockAndMint(
-       address recipient,
-       uint256 amount,
-       uint256 nonce
-   ) external notBlacklisted whenNotPaused {
-       require(balanceOf(msg.sender) >= amount, "Insufficient balance"); // Check sender's balance
-       require(!usedNonces[nonce], "Nonce already used"); // Check nonce is unique
+    /**
+     * @dev Locks tokens on this contract and mints equivalent tokens for a recipient. 
+     * Can be called by any non-blacklisted user when not paused. 
+     *
+     * Requirements:
+     *
+     * - `msg.sender` must have a sufficient balance for locking tokens. 
+     * - `nonce` must be unique and not previously used. 
+     *
+     * Emits a Lock event and a MintOnOtherChain event upon success. 
+     *
+     * @param recipient The address receiving the minted tokens on another chain. 
+     * @param amount The amount of tokens to lock and mint. 
+     * @param nonce A unique identifier for this transaction. 
+     */
 
-       _transfer(msg.sender, address(this), amount); // Locking tokens on this contract
+    function lockAndMint(
+        address recipient,
+        uint256 amount,
+        uint256 nonce
+    ) external notBlacklisted whenNotPaused {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance"); // Check sender's balance
+        require(!usedNonces[nonce], "Nonce already used"); // Check nonce is unique
 
-       usedNonces[nonce] = true; // Mark nonce as used
+        _transfer(msg.sender, address(this), amount); // Locking tokens on this contract
 
-       emit Lock(msg.sender, amount, nonce); // Emit lock event
-       emit MintOnOtherChain(recipient, amount); // Emit mint event for bridge contract
+        usedNonces[nonce] = true; // Mark nonce as used
 
-       _mint(recipient, amount); // Mint tokens to recipient (for demonstration)
-   }
+        emit Lock(msg.sender, amount, nonce); // Emit lock event
+        emit MintOnOtherChain(recipient, amount); // Emit mint event for bridge contract
+
+        _mint(recipient, amount); // Mint tokens to recipient (for demonstration)
+    }
+
+    function getRoleForAddress(address account) external view returns(string memory roles) {
+        roles = "";
+        if (hasRole(MINTER_ROLE, account)) {
+            roles = string(abi.encodePacked(roles, "MINTER "));
+        }
+        if (hasRole(BURNER_ROLE, account)) {
+            roles = string(abi.encodePacked(roles, "BURNER "));
+        }
+        if (hasRole(PAUSER_ROLE, account)) {
+            roles = string(abi.encodePacked(roles, "PAUSER "));
+        }
+        if (bytes(roles).length == 0) {
+            return "NO ROLE"; // Return if no roles are found
+        }
+        return roles;
+    }
 }
